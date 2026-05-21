@@ -1,0 +1,14 @@
+{
+  "name": "rural-digital-education",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Regional Language Based Digital Education System",
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "install:all": "npm install --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "backend": "cd backend && python run.py",
+    "start:frontend": "npm run dev --prefix frontend",
+    "start:backend": "cd backend && python run.py"
+  }
+}
