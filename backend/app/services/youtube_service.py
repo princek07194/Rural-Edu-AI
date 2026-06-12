@@ -335,8 +335,11 @@ def fetch_transcript(video_id: str, language: str = "en") -> dict:
 
         if hasattr(YouTubeTranscriptApi(), "fetch"):
             return _fetch_ytt_api_v1(video_id, language)
-    except ValueError:
-        raise
+    except ValueError as e:
+        msg = str(e).lower()
+        if "blocked automatic transcript download" in msg or "ipblocked" in msg or "requestblocked" in msg:
+            raise
+        errors.append(f"transcript-api: {e}")
     except Exception as e:
         errors.append(f"transcript-api: {e}")
 
@@ -346,8 +349,11 @@ def fetch_transcript(video_id: str, language: str = "en") -> dict:
 
         if hasattr(YouTubeTranscriptApi, "get_transcript"):
             return _fetch_ytt_api_legacy(video_id, language)
-    except ValueError:
-        raise
+    except ValueError as e:
+        msg = str(e).lower()
+        if "blocked automatic transcript download" in msg or "ipblocked" in msg or "requestblocked" in msg:
+            raise
+        errors.append(f"legacy-api: {e}")
     except Exception as e:
         errors.append(f"legacy-api: {e}")
 
